@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="content">
+    {% if objects_list %}
+    <h1>Список курсов для категории "{{name}}"</h1>
+        {% for item in objects_list %}
+        <li>
+            {{item.name}} <span><a href="/copy-course/?name={{item.name}}">скопировать</a></span>
+        </li>
+        {% endfor %}
+    {% else %}
+    <h1>В категории "{{name}}" пока нет курсов</h1>
+    {% endif %}
+
+    <h1>Создайте курс</h1>
+
+    <form method="post">
+        <input type="text" name="name" placeholder="Название">
+        Интерактивный курс <input type="checkbox" name="type_course" placeholder="Тип курса" value="True">
+        <button type="submit">Сохранить и вернуться на главную</button>
+    </form>
+
+</div>
+{% endblock %}
