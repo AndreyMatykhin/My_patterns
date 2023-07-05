@@ -29,7 +29,6 @@ class MyFramework:
         if request['method'] == 'GET':
             request['request_params'] = MyFramework.decode_value(
                 GetRequests().parse_input_data(environ['QUERY_STRING']))
-        print(request)
 
         # front controller
         for front in self.fronts:

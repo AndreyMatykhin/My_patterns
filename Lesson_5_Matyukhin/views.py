@@ -1,3 +1,4 @@
+from patterns.debug import Debug
 from patterns.approute import AppRoute
 from patterns.engine import Engine
 from patterns.logger import Logger
@@ -9,6 +10,7 @@ site = Engine()
 
 @AppRoute('/')
 class Index:
+    @Debug('Index')
     def __call__(self, request):
         return '200 OK', render('index.html', objects_list=site.categories)
 

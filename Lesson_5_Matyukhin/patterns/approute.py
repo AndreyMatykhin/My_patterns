@@ -1,6 +1,7 @@
 routes = {}
+
+
 class AppRoute:
-    #
 
     def __init__(self, url):
         self.routes = routes
