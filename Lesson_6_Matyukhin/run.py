@@ -1,6 +1,6 @@
 from wsgiref.simple_server import make_server
 
-from patterns.approute import routes
+from patterns.sp_approute import routes
 from urls import fronts
 from my_framework.main import MyFramework
 

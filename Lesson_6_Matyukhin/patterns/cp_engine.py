@@ -13,11 +13,11 @@ class Engine:
     def create_category(name, category=None):
         return Category(name, category)
 
-    def find_category_by_id(self, id):
+    def find_category_by_id(self, id_category):
         for item in self.categories:
-            if item.id == id:
+            if item.id == id_category:
                 return item
-        raise Exception(f'Нет категории с id = {id}')
+        raise Exception(f'Нет категории с id = {id_category}')
 
     @staticmethod
     def decode_value(val):
@@ -35,9 +35,19 @@ class Engine:
                 return item
         return None
 
+    @staticmethod
+    def create_user(type_, name):
+        return UserFactory.create(type_, name)
+
+    def get_student(self, name):
+        for item in self.students:
+            if item.name == name:
+                return item
+
 
 class User:
-    pass
+    def __init__(self, name):
+        self.name = name
 
 
 class Teacher(User):
@@ -45,7 +55,9 @@ class Teacher(User):
 
 
 class Student(User):
-    pass
+    def __init__(self, name):
+        self.courses = []
+        super().__init__(name)
 
 
 class UserFactory:
@@ -55,8 +67,8 @@ class UserFactory:
     }
 
     @classmethod
-    def create(cls, type_):
-        return cls.types[type_]()
+    def create(cls, type_, name):
+        return cls.types[type_](name)
 
 
 class Category:
@@ -87,6 +99,16 @@ class Course(CoursePrototype):
         self.name = name
         self.category = category
         self.category.courses.append(self)
+        self.students = []
+        # super().__init__()
+
+    # def __getitem__(self, item):
+    #     return self.students[item]
+
+    def add_student(self, student: Student):
+        self.students.append(student)
+        student.courses.append(self)
+        # self.notify()
 
 
 class InteractiveCourse(Course):
