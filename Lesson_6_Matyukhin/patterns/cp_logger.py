@@ -1,3 +1,6 @@
+from .bp_logger import FileWriter
+
+
 class SingletonByName(type):
 
     def __init__(cls, name, bases, attrs, **kwargs):
@@ -19,9 +22,10 @@ class SingletonByName(type):
 
 class Logger(metaclass=SingletonByName):
 
-    def __init__(self, name):
+    def __init__(self, name, writer=FileWriter()):
         self.name = name
+        self.writer = writer
 
-    @staticmethod
-    def log(text):
+    def log(self, text):
         print(f'log---> {text}')
+        self.writer.write(text)
