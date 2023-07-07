@@ -1,6 +1,8 @@
 from copy import deepcopy
 from quopri import decodestring
 
+from .bp_subject import Subject
+
 
 class Engine:
     def __init__(self):
@@ -93,22 +95,22 @@ class CoursePrototype:
         return deepcopy(self)
 
 
-class Course(CoursePrototype):
+class Course(CoursePrototype, Subject):
 
     def __init__(self, name, category):
         self.name = name
         self.category = category
         self.category.courses.append(self)
         self.students = []
-        # super().__init__()
+        super().__init__()
 
-    # def __getitem__(self, item):
-    #     return self.students[item]
+    def __getitem__(self, item):
+        return self.students[item]
 
     def add_student(self, student: Student):
         self.students.append(student)
         student.courses.append(self)
-        # self.notify()
+        self.notify()
 
 
 class InteractiveCourse(Course):

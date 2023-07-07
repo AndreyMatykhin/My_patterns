@@ -25,7 +25,6 @@ class ListView(TemplateView):
     context_object_name = 'objects_list'
 
     def get_queryset(self):
-        print(self.queryset)
         return self.queryset
 
     def get_context_object_name(self):
@@ -50,7 +49,6 @@ class CreateView(TemplateView):
 
     def __call__(self, request):
         if request['method'] == 'POST':
-            # метод пост
             data = self.get_request_data(request)
             self.create_obj(data)
             return self.render_template_with_context()
