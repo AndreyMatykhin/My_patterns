@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="content">
+    {% if students %}
+    <a href="/student-list/">Список студентов</a>
+    {% for item in students %}
+    <li>
+        {{item.name}}
+    </li>
+    {% endfor %}
+    {% endif %}
+    <div>
+        <h1>Создание студента</h1>
+        <form method="post">
+            <input type="text" name="name" placeholder="Имя">
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
