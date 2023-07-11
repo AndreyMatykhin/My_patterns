@@ -2,6 +2,7 @@ from copy import deepcopy
 from quopri import decodestring
 
 from .bp_subject import Subject
+from .sap_unit_of_work import DomainObject
 
 
 class Engine:
@@ -56,7 +57,7 @@ class Teacher(User):
     pass
 
 
-class Student(User):
+class Student(User, DomainObject):
     def __init__(self, name):
         self.courses = []
         super().__init__(name)

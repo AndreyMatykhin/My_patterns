@@ -1,3 +1,5 @@
+from patterns.sap_unit_of_work import UnitOfWork
+from patterns.cp_student_mapper import MapperRegistry
 from patterns.bp_serializer import BaseSerializer
 from patterns.bp_template import ListView, CreateView
 from patterns.sp_debug import Debug
@@ -8,6 +10,9 @@ from my_framework.templator import render
 
 logger = Logger('main')
 site = Engine()
+site.students = MapperRegistry.get_current_mapper('student').all()
+UnitOfWork.new_current()
+UnitOfWork.get_current().set_mapper_registry(MapperRegistry)
 
 
 @AppRoute('/')
@@ -122,6 +127,8 @@ class StudentCreateView(CreateView):
         name = site.decode_value(name)
         new_obj = site.create_user('student', name)
         site.students.append(new_obj)
+        new_obj.mark_new()
+        UnitOfWork.get_current().commit()
 
 
 @AppRoute('/add-student/')
