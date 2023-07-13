@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="content">
+    {% if objects_list %}
+    <h1>Список существующих категорий курсов</h1>
+    {% for item in objects_list %}
+    <li>
+        {{item.name}} <span>Количество курсов: {{item.course_count()}}</span>
+        <a href="/courses-list/?id={{item.id}}">Показать курсы</a>
+    </li>
+    {% endfor %}
+    {% endif %}
+
+    <h1>Создайте категорию</h1>
+
+    <form method="post">
+        <input type="text" name="name" placeholder="Название">
+        <button type="submit">Сохранить и вернуться на главную</button>
+    </form>
+
+</div>
+{% endblock %}
